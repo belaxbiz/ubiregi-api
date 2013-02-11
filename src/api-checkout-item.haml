@@ -25,6 +25,8 @@
       %dd Sales discounted
       %dt= field "discount_tax"
       %dd TAX discounted
+      %dt= field "guid", :immutable
+      %dd UUID like sequence
 
   .span6
     %pre
@@ -37,7 +39,8 @@
             "sales": "330.0",
             "tax": "0.0",
             "discount_sales": "0.0",
-            "discount_tax": "0.0"
+            "discount_tax": "0.0",
+            "guid" : $UUID-like-sequence
           }
 
 %h3 Notes
