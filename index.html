@@ -254,7 +254,7 @@ The publicity can not be changed later.</li>
     </td>
   </tr>
   <tr>
-    <th>force_authrize</th>
+    <th>force_authorize</th>
     <td>
       Give true if you want your user to click "Authorize" button before your app got authorized.
       (Default: false; if your user is trying to authorize your app again, it skips to prompt "Authorize" button.)
@@ -1398,10 +1398,12 @@ It records how many the item sold and the price.</p>
       <dd>Sales discounted</dd>
       <dt>discount_tax</dt>
       <dd>TAX discounted</dd>
+      <dt>guid <span class='label immutable'>immutable</span></dt>
+      <dd>UUID like sequence</dd>
     </dl>
   </div>
   <div class='span6'>
-    <pre>{&#x000A;  &quot;id&quot;: 1,&#x000A;  &quot;menu_item_id&quot;: 1,&#x000A;  &quot;count&quot;: 3,&#x000A;  &quot;sales&quot;: &quot;330.0&quot;,&#x000A;  &quot;tax&quot;: &quot;0.0&quot;,&#x000A;  &quot;discount_sales&quot;: &quot;0.0&quot;,&#x000A;  &quot;discount_tax&quot;: &quot;0.0&quot;&#x000A;}</pre>
+    <pre>{&#x000A;  &quot;id&quot;: 1,&#x000A;  &quot;menu_item_id&quot;: 1,&#x000A;  &quot;count&quot;: 3,&#x000A;  &quot;sales&quot;: &quot;330.0&quot;,&#x000A;  &quot;tax&quot;: &quot;0.0&quot;,&#x000A;  &quot;discount_sales&quot;: &quot;0.0&quot;,&#x000A;  &quot;discount_tax&quot;: &quot;0.0&quot;,&#x000A;  &quot;guid&quot; : $UUID-like-sequence&#x000A;}</pre>
   </div>
 </div>
 <h3>Notes</h3>
@@ -1419,10 +1421,12 @@ The price is calculated as follows: <code>sales</code> + <code>tax</code> - (<co
       <dd>ID of <code>PaymentType</code></dd>
       <dt>amount</dt>
       <dd>An string which represents the amount customer paid</dd>
+      <dt>guid <span class='label immutable'>immutable</span></dt>
+      <dd>UUID like sequence</dd>
     </dl>
   </div>
   <div class='span6'>
-    <pre>{&#x000A;  &quot;id&quot;: 1,&#x000A;  &quot;payment_type_id&quot;: 1,&#x000A;  &quot;amount&quot;: &quot;5000.0&quot;&#x000A;}</pre>
+    <pre>{&#x000A;  &quot;id&quot;: 1,&#x000A;  &quot;payment_type_id&quot;: 1,&#x000A;  &quot;amount&quot;: &quot;5000.0&quot;,&#x000A;  &quot;guid&quot; : $UUID-like-sequence&#x000A;}</pre>
   </div>
 </div>
 <h3>Notes</h3>
