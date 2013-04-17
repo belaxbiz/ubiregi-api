@@ -3,4 +3,3 @@ index.html: src/*.haml
 
 clean:
 	rm *.html
-
