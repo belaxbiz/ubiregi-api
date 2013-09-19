@@ -213,10 +213,10 @@
         <code>Checkout</code> objects to be created/updated.
         %dl
           %dt= field "id"
-          %dt= field "guid"
+          %dt= field "guid", :optional
           %dt= field "change"
           %dt= field "status"
-          %dt= field "cashier_id"
+          %dt= field "cashier_id", :optional
           %dt= field "customers_count"
           %dt= field "payments"
           %dd Array of <code>CheckoutPayment</code>s.

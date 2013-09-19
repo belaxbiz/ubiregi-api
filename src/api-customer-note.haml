@@ -136,13 +136,13 @@
           %dt= field "customer_id"
           %dd <code>Customer</code> for the <code>customer_id</code> should be available from current account.
           %dt= field "app_created_at"
-          %dt= field "guid"
-          %dt= field "checkout_id"
+          %dt= field "guid", :optional
+          %dt= field "checkout_id", :optional
           %dd Should be ID of <code>Checkout</code> of current account.
-          %dt= field "kind"
-          %dt= field "note"
-          %dt= "photo"
-          %dt= field "checkout_summary"
+          %dt= field "kind", :optional
+          %dt= field "note", :optional
+          %dt= field "photo", :optional
+          %dt= field "checkout_summary", :optional
 
 %h3 Response
 .row

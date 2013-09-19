@@ -222,7 +222,7 @@
             You should consult to OAuth2 spec for details.
           </p>
           <h2 id='authentication-app-registration'>App Registration</h2>
-          <p>Visit <a href="https://ubiregi.com/developer">Ubiregi Developer Dashboard</a> to
+          <p>Visit <a href="https://ubiregi.com/developer">Ubiregi Developer Dashboard</a> to 
           register your app.</p>
           <h3>Remarks</h3>
           <ul>
@@ -415,8 +415,8 @@
           Group of visible checkouts in left is because the existence of a subscription.
           Another group of visible checkouts in right is because its <code>paid_at</code> is new.</p>
           <img src='images/checkout-visibility.png'>
-          <p>These definitions about checkout visibility may cause a problem, when your user's account is expired and your user is using CRM.
-          Customer's history may have a reference to invisible checkouts.</p>
+          <p>These definitions about checkout visibility may cause a problem, when your user&#39;s account is expired and your user is using CRM.
+          Customer&#39;s history may have a reference to invisible checkouts.</p>
           <hr>
           <h1 id='notations'>Notations</h1>
           <h2>Field Attributes</h2>
@@ -600,8 +600,8 @@
           <h2 id='get-on-accounts-account-id'>GET on /accounts/<em>account_id</em></h2>
           <p>Retrieves an <code>Account</code> object with <em>account_id</em>.</p>
           
-          <p><em>account_id</em> can be either the ID of account or an string <code>"current"</code>.
-          If <code>"current"</code> is specified, it is understood as the ID of current account.</p>
+          <p><em>account_id</em> can be either the ID of account or an string <code>&quot;current&quot;</code>.
+          If <code>&quot;current&quot;</code> is specified, it is understood as the ID of current account.</p>
           <h3>Request</h3>
           <div class='row'>
             <div class='span6'>
@@ -685,13 +685,13 @@
           <p>Icons can be set through <code>icon_name</code> attribute.
           The value of <code>icon_name</code> should be one of the following list.</p>
           
-          <p><strong><em> FIXME </em></strong></p>
+          <p>*** FIXME ***</p>
           
           <p>Icons are sent from server as its binary image in Base64 encoded form.</p>
           
           <p>Thus, <code>icon_name</code> is a <em>writeonly</em> attribute and <code>icon</code> and <code>icon_mime</code> are <em>readonly</em> attributes.</p>
           <h2 id='post-on-accounts-account-id-customer-tags'>POST on /accounts/<em>account_id</em>/customer_tags</h2>
-          <p>Update the customer_tags of an account specified by <em>account_id</em>.</p>
+          <p>Update the customer<em>tags of an account specified by *account</em>id*.</p>
           <h3>Request</h3>
           <div class='row'>
             <div class='span6'>
@@ -705,7 +705,7 @@
                   <dl>
                     <dt>id</dt>
                     <dt>name</dt>
-                    <dt>position</dt>
+                    <dt>position <span class='label optional'>Optional</span></dt>
                     <dt>icon_name</dt>
                   </dl>
                 </dd>
@@ -752,7 +752,7 @@
           </div>
           <h2 id='post-on-accounts-account-id-cashiers'>POST on /accounts/<em>account_id</em>/cashiers</h2>
           <p>Update the cashiers of an account specified by <em>:account_id</em>.
-          The child account's cashiers can be updated by parents.</p>
+          The child account&#39;s cashiers can be updated by parents.</p>
           <h3>Request</h3>
           <div class='row'>
             <div class='span6'>
@@ -766,8 +766,8 @@
                   <dl>
                     <dt>id</dt>
                     <dt>name</dt>
-                    <dt>enabled</dt>
-                    <dt>icon</dt>
+                    <dt>enabled <span class='label optional'>Optional</span></dt>
+                    <dt>icon <span class='label optional'>Optional</span></dt>
                     <dd>
                       Base64 encoded data of icon.
                       If unspecified, the icon is not updated.
@@ -827,7 +827,7 @@
           <h3>Request</h3>
           <div class='row'>
             <div class='span6'>
-              <pre>{&#x000A;  &quot;payment_types&quot;: [&#x000A;    {&#x000A;      &quot;name&quot;: &quot;Book Coupon&quot;,&#x000A;      &quot;change&quot;: true,&#x000A;      &quot;kind&quot;: &quot;other&quot;&#x000A;    },&#x000A;    {&#x000A;      &quot;id&quot;: 123,&#x000A;      &quot;change&quot;: false,&#x000A;    }&#x000A;  ]&#x000A;}</pre>
+              <pre>{&#x000A;  &quot;payment_types&quot;: [&#x000A;    {&#x000A;      &quot;name&quot;: &quot;Book Coupon&quot;,&#x000A;      &quot;enabled&quot;:true,&#x000A;      &quot;change&quot;: true,&#x000A;      &quot;kind&quot;: &quot;other&quot;&#x000A;    },&#x000A;    {&#x000A;      &quot;id&quot;: 123,&#x000A;      &quot;change&quot;: false,&#x000A;    }&#x000A;  ]&#x000A;}</pre>
             </div>
             <div class='span6'>
               <dl>
@@ -837,6 +837,7 @@
                   <dl>
                     <dt>id</dt>
                     <dt>name</dt>
+                    <dt>enabled</dt>
                     <dt>change</dt>
                     <dt>kind</dt>
                   </dl>
@@ -920,7 +921,7 @@
                   <dl>
                     <dt>id</dt>
                     <dt>name</dt>
-                    <dt>position</dt>
+                    <dt>position <span class='label optional'>Optional</span></dt>
                   </dl>
                 </dd>
               </dl>
@@ -1046,12 +1047,12 @@
                   Array of <code>MenuItem</code> objects to be updated/created.
                   <dl>
                     <dt>id</dt>
-                    <dt>name</dt>
                     <dt>sku</dt>
+                    <dt>name</dt>
                     <dt>price</dt>
                     <dt>price_type</dt>
-                    <dt>vat</dt>
-                    <dt>position</dt>
+                    <dt>vat <span class='label optional'>Optional</span></dt>
+                    <dt>position <span class='label optional'>Optional</span></dt>
                     <dt>category_id</dt>
                   </dl>
                 </dd>
@@ -1073,7 +1074,7 @@
           <h1 id='object-stock-event'>Stock Event</h1>
           <p>Event object related to stock control.
           The object is used to tell someone that stock-related event has occured.
-          Type of a stock event is either "inventory", "arrival", "shipping", or "order".</p>
+          Type of a stock event is either &quot;inventory&quot;, &quot;arrival&quot;, &quot;shipping&quot;, or &quot;order&quot;.</p>
           <h2 id='object-stock-event-fields'>Fields</h2>
           <div class='row'>
             <div class='span6'>
@@ -1108,7 +1109,7 @@
             </div>
           </div>
           <h3>Amount of an Event</h3>
-          <p>The interpretation of <code>amount</code> depends on the event's <code>event_type</code>.</p>
+          <p>The interpretation of <code>amount</code> depends on the event&#39;s <code>event_type</code>.</p>
           
           <p>Assume there is a <code>StockEvent</code> object with <code>amount = 55</code>.
           It says the following facts depending on <code>event_type</code>:</p>
@@ -1166,14 +1167,13 @@
                   <dl>
                     <dt>menu_item_id</dt>
                     <dt>app_created_at</dt>
-                    <dt>inventory</dt>
                     <dt>event_type</dt>
                     <dt>amount</dt>
                     <dt>uuid</dt>
-                    <dt>body</dt>
-                    <dt>deleted</dt>
+                    <dt>body <span class='label optional'>Optional</span></dt>
+                    <dt>deleted <span class='label optional'>Optional</span></dt>
                     <dd>If there is not <code>deleted</code> in the request, it will be treated as if <code>false</code> is specified.</dd>
-                    <dt>checkoug_guid</dt>
+                    <dt>checkoug_guid <span class='label optional'>Optional</span></dt>
                   </dl>
                 </dd>
               </dl>
@@ -1285,7 +1285,7 @@
           </div>
           <h2 id='get-on-accounts-account-id-checkouts-close' style='font-size:30px'>GET on /accounts/<em>account_id</em>/checkouts/close</h2>
           <p>Retrieves the <em>closed</em> checkouts of the account which specified with <em>account_id</em>.
-          Checkout which <code>status</code> is <code>"close"</code> or <code>"cancel"</code> is <em>closed</em> checkout.</p>
+          Checkout which <code>status</code> is <code>&quot;close&quot;</code> or <code>&quot;cancel&quot;</code> is <em>closed</em> checkout.</p>
           <h3>Request</h3>
           <div class='row'>
             <div class='span6'>
@@ -1332,10 +1332,10 @@
                   <code>Checkout</code> objects to be created/updated.
                   <dl>
                     <dt>id</dt>
-                    <dt>guid</dt>
+                    <dt>guid <span class='label optional'>Optional</span></dt>
                     <dt>change</dt>
                     <dt>status</dt>
-                    <dt>cashier_id</dt>
+                    <dt>cashier_id <span class='label optional'>Optional</span></dt>
                     <dt>customers_count</dt>
                     <dt>payments</dt>
                     <dd>Array of <code>CheckoutPayment</code>s.</dd>
@@ -1503,9 +1503,9 @@
           <p>An customer is available only if the customer is associated with one of the following:</p>
           
           <ol>
-          <li>Current account's parents</li>
-          <li>Current account's children</li>
-          <li>Current account's siblings</li>
+          <li>Current account&#39;s parents</li>
+          <li>Current account&#39;s children</li>
+          <li>Current account&#39;s siblings</li>
           </ol>
           <img src='images/available-customers.png'>
           <p>The circles represent accounts and gray arrows represents parent-child associations.
@@ -1524,9 +1524,9 @@
                 <dd>
                   Array of <code>Customer</code> objects which will be updated/created.
                   <dl>
-                    <dt>guid</dt>
+                    <dt>guid <span class='label optional'>Optional</span></dt>
                     <dt>deleted</dt>
-                    <dt>updated_fields</dt>
+                    <dt>updated_fields <span class='label optional'>Optional</span></dt>
                     <dd>
                       Array of updated or newly inserted <code>CustomerField</code>s.
                     </dd>
@@ -1719,13 +1719,13 @@
                     <dt>customer_id</dt>
                     <dd><code>Customer</code> for the <code>customer_id</code> should be available from current account.</dd>
                     <dt>app_created_at</dt>
-                    <dt>guid</dt>
-                    <dt>checkout_id</dt>
+                    <dt>guid <span class='label optional'>Optional</span></dt>
+                    <dt>checkout_id <span class='label optional'>Optional</span></dt>
                     <dd>Should be ID of <code>Checkout</code> of current account.</dd>
-                    <dt>kind</dt>
-                    <dt>note</dt>
-                    <dt>photo</dt>
-                    <dt>checkout_summary</dt>
+                    <dt>kind <span class='label optional'>Optional</span></dt>
+                    <dt>note <span class='label optional'>Optional</span></dt>
+                    <dt>photo <span class='label optional'>Optional</span></dt>
+                    <dt>checkout_summary <span class='label optional'>Optional</span></dt>
                   </dl>
                 </dd>
               </dl>
@@ -1763,7 +1763,7 @@
           </dl>
           <h2>Permissions on Objects of Other Accounts</h2>
           <p>Ubiregi API permission model is very simple.
-          The permission to a object is decided by its owner account's <em>role</em>.</p>
+          The permission to a object is decided by its owner account&#39;s <em>role</em>.</p>
           
           <p>There are three permissions, <em>nothing</em>, <em>readonly</em> and <em>writable</em>.</p>
           <dl>
@@ -1847,9 +1847,11 @@
           
           <p>To download the image data, give an http query parameter <code>image=blob</code>.</p>
           <h3>Example: Downloading with Icons</h3>
-          <blockquote><p>GET /accounts/current?image=blob</p>
+          <blockquote>
+          <p>GET /accounts/current?image=blob</p>
           
-          <p>GET /accounts/customer/notes?image=blob</p></blockquote>
+          <p>GET /accounts/customer/notes?image=blob</p>
+          </blockquote>
           <h1 id='errors'>Errors</h1>
           <p>Errors are notified via HTTP response status. Error code are following
           the standard HTTP error code convention. If there are something bad in
