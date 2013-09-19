@@ -80,9 +80,8 @@ body{
     background-color:#90a4be;
 }
 
-.label.optional{
+.label.required{
     background-color:deeppink;
-    font-size:50px;
 }
 /*bootstrap*/
 
