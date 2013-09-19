@@ -141,12 +141,12 @@
       %dd
         Array of <code>StockEvents</code> objects which will be created.
         %dl
-          %dt= field "menu_item_id"
-          %dt= field "app_created_at"
+          %dt= field "menu_item_id", :required
+          %dt= field "app_created_at", :required
           %dt= field "inventory"
-          %dt= field "event_type"
-          %dt= field "amount"
-          %dt= field "uuid"
+          %dt= field "event_type", :required
+          %dt= field "amount", :required
+          %dt= field "uuid", :required
           %dt= field "body"
           %dt= field "deleted"
           %dd If there is not <code>deleted</code> in the request, it will be treated as if <code>false</code> is specified.
