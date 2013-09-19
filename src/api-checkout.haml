@@ -214,10 +214,10 @@
         %dl
           %dt= field "id"
           %dt= field "guid"
-          %dt= field "change"
-          %dt= field "status"
+          %dt= field "change", :required
+          %dt= field "status", :required
           %dt= field "cashier_id"
-          %dt= field "customers_count"
+          %dt= field "customers_count", :required
           %dt= field "payments"
           %dd Array of <code>CheckoutPayment</code>s.
           %dt= field "items"
