@@ -704,9 +704,9 @@
                   Collection of <code>CustomerTag</code> objects.
                   <dl>
                     <dt>id</dt>
-                    <dt>name <span class='label required'>Required</span></dt>
-                    <dt>position</dt>
-                    <dt>icon_name <span class='label required'>Required</span></dt>
+                    <dt>name</dt>
+                    <dt>position <span class='label optional'>Optional</span></dt>
+                    <dt>icon_name</dt>
                   </dl>
                 </dd>
               </dl>
@@ -765,9 +765,9 @@
                   Array of <code>Cashier</code> objects to be updated/created.
                   <dl>
                     <dt>id</dt>
-                    <dt>name <span class='label required'>Required</span></dt>
-                    <dt>enabled</dt>
-                    <dt>icon</dt>
+                    <dt>name</dt>
+                    <dt>enabled <span class='label optional'>Optional</span></dt>
+                    <dt>icon <span class='label optional'>Optional</span></dt>
                     <dd>
                       Base64 encoded data of icon.
                       If unspecified, the icon is not updated.
@@ -836,10 +836,10 @@
                   Array of <code>PaymentType</code> objects to update/create.
                   <dl>
                     <dt>id</dt>
-                    <dt>name <span class='label required'>Required</span></dt>
-                    <dt>enabled <span class='label required'>Required</span></dt>
-                    <dt>change <span class='label required'>Required</span></dt>
-                    <dt>kind <span class='label required'>Required</span></dt>
+                    <dt>name</dt>
+                    <dt>enabled</dt>
+                    <dt>change</dt>
+                    <dt>kind</dt>
                   </dl>
                 </dd>
               </dl>
@@ -920,8 +920,8 @@
                   Array of <code>Category</code> objects to be updated/created.
                   <dl>
                     <dt>id</dt>
-                    <dt>name <span class='label required'>Required</span></dt>
-                    <dt>position</dt>
+                    <dt>name</dt>
+                    <dt>position <span class='label optional'>Optional</span></dt>
                   </dl>
                 </dd>
               </dl>
@@ -1047,13 +1047,13 @@
                   Array of <code>MenuItem</code> objects to be updated/created.
                   <dl>
                     <dt>id</dt>
-                    <dt>sku <span class='label required'>Required</span></dt>
-                    <dt>name <span class='label required'>Required</span></dt>
-                    <dt>price <span class='label required'>Required</span></dt>
-                    <dt>price_type <span class='label required'>Required</span></dt>
-                    <dt>vat</dt>
-                    <dt>position</dt>
-                    <dt>category_id <span class='label required'>Required</span></dt>
+                    <dt>sku</dt>
+                    <dt>name</dt>
+                    <dt>price</dt>
+                    <dt>price_type</dt>
+                    <dt>vat <span class='label optional'>Optional</span></dt>
+                    <dt>position <span class='label optional'>Optional</span></dt>
+                    <dt>category_id</dt>
                   </dl>
                 </dd>
               </dl>
@@ -1165,15 +1165,15 @@
                 <dd>
                   Array of <code>StockEvents</code> objects which will be created.
                   <dl>
-                    <dt>menu_item_id <span class='label required'>Required</span></dt>
-                    <dt>app_created_at <span class='label required'>Required</span></dt>
-                    <dt>event_type <span class='label required'>Required</span></dt>
-                    <dt>amount <span class='label required'>Required</span></dt>
-                    <dt>uuid <span class='label required'>Required</span></dt>
-                    <dt>body</dt>
-                    <dt>deleted</dt>
+                    <dt>menu_item_id</dt>
+                    <dt>app_created_at</dt>
+                    <dt>event_type</dt>
+                    <dt>amount</dt>
+                    <dt>uuid</dt>
+                    <dt>body <span class='label optional'>Optional</span></dt>
+                    <dt>deleted <span class='label optional'>Optional</span></dt>
                     <dd>If there is not <code>deleted</code> in the request, it will be treated as if <code>false</code> is specified.</dd>
-                    <dt>checkoug_guid</dt>
+                    <dt>checkoug_guid <span class='label optional'>Optional</span></dt>
                   </dl>
                 </dd>
               </dl>
@@ -1332,11 +1332,11 @@
                   <code>Checkout</code> objects to be created/updated.
                   <dl>
                     <dt>id</dt>
-                    <dt>guid</dt>
-                    <dt>change <span class='label required'>Required</span></dt>
-                    <dt>status <span class='label required'>Required</span></dt>
-                    <dt>cashier_id</dt>
-                    <dt>customers_count <span class='label required'>Required</span></dt>
+                    <dt>guid <span class='label optional'>Optional</span></dt>
+                    <dt>change</dt>
+                    <dt>status</dt>
+                    <dt>cashier_id <span class='label optional'>Optional</span></dt>
+                    <dt>customers_count</dt>
                     <dt>payments</dt>
                     <dd>Array of <code>CheckoutPayment</code>s.</dd>
                     <dt>items</dt>
@@ -1524,9 +1524,9 @@
                 <dd>
                   Array of <code>Customer</code> objects which will be updated/created.
                   <dl>
-                    <dt>guid</dt>
+                    <dt>guid <span class='label optional'>Optional</span></dt>
                     <dt>deleted</dt>
-                    <dt>updated_fields</dt>
+                    <dt>updated_fields <span class='label optional'>Optional</span></dt>
                     <dd>
                       Array of updated or newly inserted <code>CustomerField</code>s.
                     </dd>
@@ -1716,16 +1716,16 @@
                   Array of <code>CustomerNote</code> objects which will be updated/created.
                   <dl>
                     <dt>id</dt>
-                    <dt>customer_id <span class='label required'>Required</span></dt>
+                    <dt>customer_id</dt>
                     <dd><code>Customer</code> for the <code>customer_id</code> should be available from current account.</dd>
-                    <dt>app_created_at <span class='label required'>Required</span></dt>
-                    <dt>guid</dt>
-                    <dt>checkout_id</dt>
+                    <dt>app_created_at</dt>
+                    <dt>guid <span class='label optional'>Optional</span></dt>
+                    <dt>checkout_id <span class='label optional'>Optional</span></dt>
                     <dd>Should be ID of <code>Checkout</code> of current account.</dd>
-                    <dt>kind</dt>
-                    <dt>note</dt>
-                    <dt>photo</dt>
-                    <dt>checkout_summary</dt>
+                    <dt>kind <span class='label optional'>Optional</span></dt>
+                    <dt>note <span class='label optional'>Optional</span></dt>
+                    <dt>photo <span class='label optional'>Optional</span></dt>
+                    <dt>checkout_summary <span class='label optional'>Optional</span></dt>
                   </dl>
                 </dd>
               </dl>

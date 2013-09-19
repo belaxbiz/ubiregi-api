@@ -55,18 +55,12 @@ class Context
     "#{y} <span class='label warning'>Optional</span>"
   end
 
-  def required(y = "")
-    "#{y} <span class='label warning'>Required</span>"
-  end
-
   def field(name, *options)
     a = name
     b = options.map {|option|
       case option
       when :optional
         "<span class='label optional'>Optional</span>"
-      when :required
-        "<span class='label required'>Required</span>"
       when :readonly
         "<span class='label readonly'>Readonly</span>"
       when :writeonly
