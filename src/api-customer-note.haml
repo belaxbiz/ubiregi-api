@@ -133,9 +133,9 @@
         Array of <code>CustomerNote</code> objects which will be updated/created.
         %dl
           %dt= field "id"
-          %dt= field "customer_id"
+          %dt= field "customer_id", :required
           %dd <code>Customer</code> for the <code>customer_id</code> should be available from current account.
-          %dt= field "app_created_at"
+          %dt= field "app_created_at", :required
           %dt= field "guid"
           %dt= field "checkout_id"
           %dd Should be ID of <code>Checkout</code> of current account.
