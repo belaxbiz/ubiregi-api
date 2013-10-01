@@ -148,15 +148,15 @@
       %dd
         Array of <code>MenuItem</code> objects to be updated/created.
         %dl
-          %dt id
-          %dt name
-          %dt sku
-          %dt price
-          %dt price_type
-          %dt vat
-          %dt position
-          %dt category_id
-
+          %dt= field "id"
+          %dt= field "sku"
+          %dt= field "name"
+          %dt= field "price"
+          %dt= field "price_type"
+          %dt= field "vat", :optional
+          %dt= field "position", :optional
+          %dt= field "category_id"
+ 
 %h3 Response
 
 .row

@@ -143,14 +143,13 @@
         %dl
           %dt= field "menu_item_id"
           %dt= field "app_created_at"
-          %dt= field "inventory"
           %dt= field "event_type"
           %dt= field "amount"
           %dt= field "uuid"
-          %dt= field "body"
-          %dt= field "deleted"
+          %dt= field "body", :optional
+          %dt= field "deleted", :optional
           %dd If there is not <code>deleted</code> in the request, it will be treated as if <code>false</code> is specified.
-          %dt= field "checkoug_guid"
+          %dt= field "checkoug_guid", :optional
 
 %h3 Response
 .row
