@@ -477,6 +477,22 @@
               <th><code>glb</code></th>
               <td>Greatest lower bound of id of the result set. This is used to retrieve next batch of the collection.</td>
             </tr>
+            <tr>
+              <th><code>verbose=true</code></th>
+              <td>
+                <p>Retrieve optional information of the resource.  You are able to use this parameter in the indexing actions related
+                to <code>Checkout</code>, <code>CheckoutItem</code>, <code>CheckoutPayment</code>, <code>CustomerNote</code>, and <code>MenuItem</code>.  Otherwise, the parameter
+                is simply ignored.</p>
+              </td>
+            </tr>
+            <tr>
+              <th><code>image=blob</code></th>
+              <td>
+                <p>Retrieve Base64 encoded image if the resource has image data such as <code>receipt_logo</code> and <code>icon</code>.
+                You are able to use this parameter in the actions related to <code>Cashier</code>, <code>CustomerNote</code>, and <code>CustomerTag</code>.  Otherwise,
+                the parameter is simply ignored.</p>
+              </td>
+            </tr>
           </table>
           <p>The result set can be described as follows:</p>
           <blockquote>{ item | since ≤ item.updated_at ⋀ item.updated_at < until ⋀ glb < item.id }</blockquote>
@@ -505,10 +521,6 @@
               The name will be different, <code>items</code> for MenuItems, <code>categories</code> for Categories, and <code>checkouts</code> for Checkouts.</p>
             </dd>
           </dl>
-          <h2>Other Parameters</h2>
-          <p>
-            Some actions take a set of parameters; <code>verbose</code> and <code>image</code>.
-          </p>
           <table>
             <tr>
               <th><code>verbose=true</code></th>

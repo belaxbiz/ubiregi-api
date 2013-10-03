@@ -24,6 +24,20 @@
   %tr
     %th <code>glb</code>
     %td Greatest lower bound of id of the result set. This is used to retrieve next batch of the collection.
+  %tr
+    %th <code>verbose=true</code>
+    %td 
+      :markdown
+        Retrieve optional information of the resource.  You are able to use this parameter in the indexing actions related
+        to `Checkout`, `CheckoutItem`, `CheckoutPayment`, `CustomerNote`, and `MenuItem`.  Otherwise, the parameter
+        is simply ignored.
+  %tr
+    %th <code>image=blob</code>
+    %td
+      :markdown
+        Retrieve Base64 encoded image if the resource has image data such as `receipt_logo` and `icon`.
+        You are able to use this parameter in the actions related to `Cashier`, `CustomerNote`, and `CustomerTag`.  Otherwise, 
+        the parameter is simply ignored.
 
 %p The result set can be described as follows:
 
@@ -62,10 +76,6 @@
     :markdown
       Array of objects.
       The name will be different, `items` for MenuItems, `categories` for Categories, and `checkouts` for Checkouts.
-
-%h2 Other Parameters
-%p
-  Some actions take a set of parameters; <code>verbose</code> and <code>image</code>.
 
 %table
   %tr
