@@ -2,8 +2,8 @@
   <head>
     <title>Ubiregi API (Beta)</title>
     <meta charset='utf-8'>
-    <link href='../bootstrap.min.css' rel='stylesheet'>
-    <link href='../top.css' rel='stylesheet'>
+    <link href='bootstrap.min.css' rel='stylesheet'>
+    <link href='top.css' rel='stylesheet'>
     <meta content='width=1120' name='viewport'>
   </head>
   <body>
@@ -27,7 +27,7 @@
           <li><a href='#authentication-compat'>Old API Compatiblity</a></li>
         </ul>
         <hr>
-        <h3>API Objects</h3>
+        <h3>API オブジェクト</h3>
         <h4><a href='#notations'>Notations</a></h4>
         <h4><a href='#collection-api-set'>Collection API</a></h4>
         <h4><a href='#object-account'>Account</a></h4>
@@ -572,59 +572,57 @@
           100 items in a request will be ok. 10,000 items in a request should cause a problem.
           We will ask you to stop posting too big request, if there are some problem.</p>
           <h1 id='object-account'>Account</h1>
-          <p><code>Account</code> object represents an Ubiregi account.
-          This is one of the most fat object such that it has most related data with the account including tables, cashiers, payment types.
-          Fetching an <code>Account</code> object should be the entry point for most API clients.</p>
+          <p><code>Account</code>オブジェクトはユビレジのアカウントを表します。<code>Account</code>オブジェクトは<code>Table</code>, <code>Cashier</code>, <code>PaymentType</code>の配列を含むような最も
+          巨大なオブジェクトです。ほとんどのAPIクライアントは、<code>Account</code>オブジェクトの取得を最初にすることになります。</p>
           
-          <p><code>Account</code> objects are readonly. There are no API to update.</p>
+          <p><code>Account</code>オブジェクトは読み込み専用です。更新するためのAPIはありません。</p>
           <h2 id='object-account-fields'>Fields</h2>
           <div class='row'>
             <div class='span6'>
               <dl>
                 <dt>id <span class='label readonly'>Readonly</span> <span class='label immutable'>immutable</span></dt>
-                <dd>Account ID.</dd>
+                <dd>サーバ側で振られたアカウントIDです。</dd>
                 <dt>login</dt>
-                <dd>Account's login</dd>
+                <dd>アカウントのログイン名です。</dd>
                 <dt>email</dt>
-                <dd>Account's email</dd>
+                <dd>アカウントのメールアドレスです。</dd>
                 <dt>name</dt>
-                <dd>Account name to be displayed to users.</dd>
+                <dd>ユーザに表示されるアカウント名です。</dd>
                 <dt>expire_at</dt>
                 <dd>
-                  Expiration data.
-                  May be `null` in the case there is no expiration on subscription.
+                  アカウントの有効期限です。サブスクリプションの有効期限が無期限の場合、値が`null`になることもあります。
                 </dd>
                 <dt>currency</dt>
-                <dd>One of <code>"JPY"</code>, <code>"USD"</code>, <code>"Unknown 2"</code>, and <code>"Unknown 3"</code>.</dd>
+                <dd>使用する通貨を表します。<code>"JPY"</code> <code>"USD"</code>, <code>"Unknown 2"</code>, <code>"Unknown 3"</code>のいずれかのみを指定できます。</dd>
                 <dt>date_offset</dt>
                 <dd>
-                  The hour date changes.
-                  If this is <code>6</code>, the date changes at 6 AM, ie <code>2012-01-01T05:59:00Z</code> is December 31, 2011 (If the timezone is UTC).
+                  日付が変わる時間を表します。たとえば、6の場合、日付は午前6時に変わります。タイムゾーンがUTCの場合、このとき、
+                  <code>2012-01-01T05:59:00Z</code>は2011年12月31日であることになります。
                 </dd>
                 <dt>timezone</dt>
-                <dd>Timezone.</dd>
+                <dd>アカウントのタイムゾーンです。</dd>
                 <dt>receipt_title</dt>
-                <dd>Receipt title.</dd>
+                <dd>レシートのタイトルです。</dd>
                 <dt>receipt_footer</dt>
-                <dd>Footer text to be printed on receipt.</dd>
+                <dd>レシートのフッタ部分に印刷されるテキストです。</dd>
                 <dt>receipt_logo</dt>
-                <dd>Base64 encoded logo image to be printed on receipt.</dd>
+                <dd>レシートに印刷されるロゴ画像がBase64エンコードされたものです。</dd>
                 <dt>menus</dt>
-                <dd>Array of IDs of <code>Menu</code>.</dd>
+                <dd><code>Menu</code> idの配列です。</dd>
                 <dt>tables</dt>
-                <dd>Array of <code>Table</code>s.</dd>
+                <dd><code>Table</code>の配列です。</dd>
                 <dt>customer_tags</dt>
-                <dd>Array of <code>CustomerTag</code>s.</dd>
+                <dd><code>CustomerTag</code>の配列です。</dd>
                 <dt>payment_types</dt>
-                <dd>Array of <code>PaymentType</code>s.</dd>
+                <dd><code>PaymentType</code>の配列です。</dd>
                 <dt>cashiers</dt>
-                <dd>Array of <code>Cashier</code>s.</dd>
+                <dd><code>Cashier</code>の配列です。</dd>
                 <dt>parent_ids</dt>
-                <dd>Array of IDs of parent accounts.</dd>
+                <dd>親アカウントのidの配列です。</dd>
                 <dt>child_ids</dt>
-                <dd>Array of IDs of child accounts.</dd>
+                <dd>子アカウントのidの配列です。</dd>
                 <dt>sibling_ids</dt>
-                <dd>Array of IDs of sibling accounts.</dd>
+                <dd>兄弟アカウントのidの配列です。</dd>
               </dl>
             </div>
             <div class='span6'>
@@ -632,17 +630,17 @@
             </div>
           </div>
           <h2 id='get-on-accounts-account-id'>GET on /accounts/<em>account_id</em></h2>
-          <p>Retrieves an <code>Account</code> object with <em>account_id</em>.</p>
+          <p><em>account_id</em> を指定して、<code>Account</code>オブジェクトを取得します。</p>
           
-          <p><em>account_id</em> can be either the ID of account or an string <code>"current"</code>.
-          If <code>"current"</code> is specified, it is understood as the ID of current account.</p>
-          <h3>Request</h3>
+          <p><em>account_id</em> は当該アカウントのidまたは文字列<code>"current"</code>のどちらかです。
+          <code>"current"</code>を指定した場合, 現在のアカウントのidを指定したものとみなされます。</p>
+          <h3>リクエスト</h3>
           <div class='row'>
             <div class='span6'>
               <pre>GET /accounts/133&#x000A;GET /accounts/current</pre>
             </div>
           </div>
-          <h3>Response</h3>
+          <h3>レスポンス</h3>
           <div class='row'>
             <div class='span6'>
               <pre>{&#x000A;  &quot;account&quot;: $account,&#x000A;  &quot;timestamp&quot;: &quot;2011-11-02T09:11:34Z&quot;,&#x000A;}</pre>
@@ -650,15 +648,15 @@
             <div class='span6'>
               <dl>
                 <dt>account</dt>
-                <dd>The account.</dd>
+                <dd>`Account`オブジェクトです。</dd>
                 <dt>timestamp</dt>
-                <dd>The time in ubiregi.com server.</dd>
+                <dd>ubiregi.com のサーバにおける時刻です。</dd>
               </dl>
             </div>
           </div>
-          <h3>Note</h3>
-          <p>The access is only allowed to current, parent, and child accounts.
-          In other case, your request will result in 404 (not found) error.</p>
+          <h3>注意点</h3>
+          <p>現在のアカウント、親または子アカウント以外にアクセスすることはできません。</p>
+          　その場合、リクエストに対して404(not found)エラーが返って来ます。
           <h1 id='object-table'>Table</h1>
           <p><strong><code>Table</code> object is deprecated.</strong>
           It is working now but will be obsoleted soon.</p>
