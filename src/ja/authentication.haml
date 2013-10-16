@@ -1,0 +1,213 @@
+%h1#authentication Authentication
+
+%p
+  Ubiregi API access is managed in the OAuth2 manner.
+  You should consult to OAuth2 spec for details.
+
+%h2#authentication-app-registration App Registration
+
+:markdown
+  Visit [Ubiregi Developer Dashboard](https://ubiregi.com/developer) to 
+  register your app.
+
+%h3 Remarks
+
+:markdown
+  * Ubiregi apps are not necessary to have an `https` redirect URI
+    (`http` can be used; although it is not recommended.)
+  * Ubiregi apps can not have multiple redirect URIs
+  * *Public client* means the app does not have an credential to be authenticated.
+    The publicity can not be changed later.
+
+%h2#authentication-authorization Getting Authorized
+
+%p
+  Make your user's UA to access at <code>https://ubiregi.com/oauth2/authorize</code> endpoint.
+  The endpoint accepts several query parameters.
+
+%table
+  %tr
+    %th client_id
+    %td Your client's ID (OAuth2)
+  %tr
+    %th state
+    %td To pass a parameter to your callback. (OAuth2)
+  %tr
+    %th force_login
+    %td
+      Give true if you want your user to input their username and password.
+      (Default: false)
+  %tr
+    %th force_authorize
+    %td
+      Give true if you want your user to click "Authorize" button before your app got authorized.
+      (Default: false; if your user is trying to authorize your app again, it skips to prompt "Authorize" button.)
+  %tr
+    %th mobile
+    %td
+      Give true if your user's UA is mobile device (small screen).
+      (Default: false)
+
+%h2#authentication-token Working with Token
+
+%p
+  <code>https://ubiregi.com/oauth2/token</code> is the token endpoint.
+  POST HTTP request following OAuth2 protocol to:
+
+%ul
+  %li Obtain an Access Token using Access Grant
+  %li Refresh Access Token using Refresh Token
+
+%h3 Token Response
+
+%p
+  The token endpoint access response is a JSON object like the following.
+
+%pre
+  = preserve do
+    :escaped
+      {
+        "access_token": $token,
+        "token_type": "bearer",
+        "expires_in": $seconds,
+        "refresh_token": $token,
+        "refresh_token_expires_in": $seconds,
+        "account_id": $account_id
+      }
+
+%p
+  Most fields are ones of OAuth2, but <code>refresh_token_expires_in</code> and <code>account_id</code> are extension by Ubiregi API.
+
+%dl
+  %dt= field "access_token"
+  %dd Access token.
+  %dt= field "token_type"
+  %dd Always <code>bearer</code>.
+  %dt= field "expires_in"
+  %dd Seconds remain to access token expiration.
+  %dt= field "refresh_token"
+  %dd Refresh token.
+  %dt= field "refresh_token_expires_in"
+  %dd
+    Seconds remain to refresh token expiration.
+    This is an extension by Ubiregi API.
+  %dt= field "account_id"
+  %dd
+    ID of the account which authenticated with the token.
+    This is an extension by Ubiregi API.
+
+%p
+  Access token and refresh token will expire.
+  Access token expiration is in 24 hours, and refresh token expiration is in 14 days in current implementation.
+  This is just because of implementation.
+  We may change them.
+
+%h3 Obtaining Access Token
+
+%p
+  POST a request with <code>grant_type=authorization_code</code> to obtain an access_token.
+  This is standard OAuth2 request and other parameters specified by OAuth2 will be accepted.
+
+%p
+  Ubiregi API issues new access token for each <code>authorization_code</code> request.
+  This might be annoying to your client since one account may have many access tokens.
+  <code>account_id</code> field is a remedy to this.
+  Invalidate all access tokens associated with the <code>account_id</code> already issued and stored in your database, and you can keep your DB clean.
+
+%h3 Refreshing Access Token
+
+%p
+  POST a request with <code>grant_type=refresh_token</code> to refresh an access_token.
+  This is standard OAuth2 request and other parameters specified by OAuth2 will be accepted.
+
+%p
+  It is completely okay if you refresh your token even if it is not expired.
+  It invalidates the old access token, and issues new access token and refresh token pair.
+
+%h2#authentication-api-access Accessing API with Token
+
+%p
+  Give an <code>Authorization</code> HTTP request header in the following syntax.
+
+%pre
+  = preserve do
+    :escaped
+      Authorization: Bearer 2948or823934y8w9dfit834
+
+%p
+  If the token is invalid, the request will result in <code>401</code> and <code>WWW-Authenticate</code> header will be <code>Bearer error="invalid_token"</code>.
+
+%p
+  If the token is expired, the request will result in <code>401</code> and <code>WWW-Authenticate</code> header will be <code>Bearer error="invalid_token",expired=true</code>.
+  The <code>expired</code> field will be given to mark the client should refresh access token using refresh token. This is an extension of OAuth2 by Ubiregi API.
+
+%h2#authentication-compat Old API Compatibility
+
+%p
+  Ubiregi API was using an token based simple access control.
+  Currently, new app registration form is closed for this protocol.
+  However, existing apps can be used to access the API.
+
+%p Give all HTTP requests to the API the following headers.
+
+%table
+  %tr
+    %th{ :width => "190" } <code>X-Ubiregi-Auth-Token</code>
+    %td
+      The authentication token of the user for your app installation.
+      This is used for authentication.
+  %tr
+    %th <code>X-Ubiregi-App-Secret</code>
+    %td
+      %div
+        Hash of your app's secret.
+        This is used to identify which app send the access, and can be used to block the app.
+        You are responsible to keep it secret.
+      %div
+        Given your app's <em>secret</em> and your generated <em>salt</em>, compute
+      %blockquote
+        <em>salt</em><code>:</code><em>h(salt . secret)</em>
+      %div
+        where, <em>h</em> is SHA1 hashing function, and <em>.</em> is concatenation of two strings.
+
+%p
+  If <code>X-Ubiregi-Auth-Token</code> or <code>X-Ubiregi-App-Secret</code> is invalid, your request will result in <code>401</code> (Unauthorized) status.
+
+%p
+  Check the #{ link_to 'examples', '#introduction-examples' } to see how the authentication is exactly.
+
+%h2 Account Expiration
+
+Account may be expired.
+
+%dl
+  %dt Expired account at time <em>t</em>
+  %dd
+    If an account does not have valid subscription at time <em>t</em>, the account is <em>expired</em>.
+  %dt Visible checkouts
+  %dd
+    Checkouts which can be downloaded from ubiregi.com server.
+    The computation of monthly sales and so on only takes visible checkouts as their input.
+  %dt Invisible checkouts
+  %dd
+    Checkouts which can not be downloaded from ubiregi.com server.
+    Invisible checkouts will be ignored, but they are stored on ubiregi.com server.
+  %dt Expired checkout at time <em>t</em>
+  %dd
+    Checkouts, where its account is expired at its <code>paid_at</code> and closed.
+
+%ul
+  %li Expired checkout at time <em>t</em> is invisible.
+  %li Checkouts where its <code>paid_at</code> is less than 3 days (72 hours) ago from <em>t</em> is visible, even if they are expired.
+
+:markdown
+  The definition of checkout visibility is described in the following figure.
+  Green and gray dots are visible and invisible checkouts respectively (assume all checkouts are closed).
+  Group of visible checkouts in left is because the existence of a subscription.
+  Another group of visible checkouts in right is because its `paid_at` is new.
+  
+= image_tag "checkout-visibility.png"
+
+:markdown
+  These definitions about checkout visibility may cause a problem, when your user's account is expired and your user is using CRM.
+  Customer's history may have a reference to invisible checkouts.

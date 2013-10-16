@@ -1,0 +1,134 @@
+%h1#api-notes API Notes
+
+%h2 IDs are Universal
+
+:markdown
+  There are only one scope of ID, *Universal*.
+  
+  If this doc says *ID*, it is an one origin integer value which uniquely determines an object on ubiregi server.
+
+%h2 Special Fields
+
+:markdown
+  Most objects have special fields, `created_at` and `updated_at`.
+
+%dl
+  %dt= field "created_at", :readonly
+  %dd
+    Server time at which the object is created.
+  %dt= field "updated_at", :readonly
+  %dd
+    Server time at which the object is updated.
+
+%h2 Permissions on Objects of Other Accounts
+
+:markdown
+  Ubiregi API permission model is very simple.
+  The permission to a object is decided by its owner account's *role*.
+  
+  There are three permissions, *nothing*, *readonly* and *writable*.
+
+%dl
+  %dt nothing
+  %dd Any access will be rejected.
+  %dt readonly
+  %dd Reading is allowed, but can not update.
+  %dt writable
+  %dd Full access allowed.
+  
+:markdown
+  There are five roles, *current*, *children*, *parents*, *siblings*, and *others*.
+
+%dl
+  %dt current
+  %dd The account which is authenticated.
+  %dt children
+  %dd Children of current account.
+  %dt parents
+  %dd The accounts of which the current account is a child.
+  %dt siblings
+  %dd The accounts which shares parents with current account.
+  %dt others
+  %dd Accounts which is not current, children, parents, and siblings.
+  
+:markdown
+  The permission is defined as following:
+
+%dl
+  %dt readonly
+  %dd Parents' and siblings' information, menus, checkouts, and stock events.
+  %dt writable
+  %dd Current's and children information, menus, checkouts, and stock events.
+  %dt nothing
+  %dd Anything else.
+
+:markdown
+  and it is figured out as following.
+
+= image_tag "object-permissions.png"
+
+:markdown
+  Each circle represents an `Account`.
+  Gray arrows represent parent-child links between accounts.
+  Red, green, blue, purple, and gray circles represent *current*, *children*, *parents*, *siblings*, and *others* accounts respectively.
+  Green background is for the object which owns objects with *writable* permission, and light-pink background is for *readonly* permission.
+
+  Note that `Customer`s have their own permission model.
+
+%h2 Stock Calculation Model
+
+:markdown
+  Each `MenuItem` has its own stock count.
+  `stock`, `last_inventory_at`, and `incoming_stock` are updated when new `StockEvent` is created.
+  
+%dl
+  %dt last_inventory_at
+  %dd
+    Find the latest <code>inventory</code> event, and set its <code>inventory_at</code>.
+  %dt stock
+  %dd
+    Find the <em>latest_inventory_event</em> and its <em>following_events</em>, and calculate the following:
+    <blockquote>
+    <em>last_inventory_amount</em> - <em>shipped_amount</em> + <em>arrived_amount</em><br>
+    where:
+    <blockquote>
+    <em>last_inventory_amount</em> = <em>latest_inventory_event</em>.<code>amount</code><br>
+    <em>shipped_amount</em> = Σ <em>following_shipping_events</em>.<code>amount</code><br>
+    <em>arrived_amount</em> = Σ <em>arrival_events</em>.<code>amount</code><br>
+    </blockquote>
+    </blockquote>
+  %dt incoming_stock
+  %dd
+    Calculate all <em>order_events</em> and <em>arrival_events</em>, and calculate the following:
+    <blockquote>
+    Σ <em>order_events</em>.<code>amount</code> - Σ <em>arrival_events</em>.<code>amount</code>
+    </blockquote>
+ 
+%h2 app_created_at Usage
+
+:markdown
+  `app_created_at` field is to remember when the object is created in the iPad app.
+  It generally meaningless; iPad clock may be inaccurate, the clock can easily changed.
+  
+  It is recommended to record some time, or just use the time of post.
+
+%h2 Private Fields
+
+:markdown
+  There may be private fields, not defined in this document but you find in the response from server.
+  It is okay if you use these fields, but keep in your mind *they are private* so that it may be removed without any announcement.
+
+%h2 Downloading Images
+
+:markdown
+  Image fields including `icon` and `photo` are `null` by default.
+  This is to reduce the size of data transmission.
+  
+  To download the image data, give an http query parameter `image=blob`.
+
+%h3 Example: Downloading with Icons
+
+:markdown
+  > GET /accounts/current?image=blob
+  
+  > GET /accounts/customer/notes?image=blob
