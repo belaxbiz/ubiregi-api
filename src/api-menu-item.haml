@@ -35,6 +35,9 @@
       %dt= field "category_id"
       %dd
         The category the item is belonging to. <code>null</code> if the item is disabled.
+      %dt= field "tag_ids"
+      %dd
+        Array of IDs of <code>CustomerTag</code> objects that are related to this item.
       %dt= field "stock", :readonly
       %dd
         The stocks with respect to <code>StockEvent</code>s.
@@ -58,6 +61,7 @@
             "vat": 5,
             "position": 102,
             "category_id": 105,
+            "tag_ids": [ 2001 ],
             "stock": 103,
             "last_inventory_at": "2012-02-13T14:00:31Z",
             "incoming_stock": 13,
