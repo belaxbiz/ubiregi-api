@@ -18,11 +18,11 @@
       %dd Barcode of the item.
       %dt= field "price_type"
       %dd
-        Note on price. One of <code>"intax"</code>, <code>"outtax"</code>, <code>"percent"</code>, and <code>"nosales"</code>.
+        Note on price. One of <code>"intax"</code>, <code>"outtax"</code>, <code>"percentage"</code>, and <code>"nosales"</code>.
         <code>"intax"</code> is used for normal items, such that the VAT is included in the price.
         <code>"outtax"</code> is to mark that the VAT is not included in the price.
-        <code>"percent"</code> is for discounting/premiums.
-        If <code>"20"</code> is the price of the item and the price_type is <code>"percent"</code>, The price is <em>20% of premier</em>.
+        <code>"percentage"</code> is for discounting/premiums.
+        If <code>"20"</code> is the price of the item and the price_type is <code>"percentage"</code>, The price is <em>20% of premier</em>.
         <code>"nosales"</code> is mark that the total sales with this item is not included in sales.
       %dt= field "price"
       %dd Price of the item. <strong>Note that price is a string</strong> to avoid inaccurate computation using floats.
