@@ -478,6 +478,12 @@
               <td>Greatest lower bound of id of the result set. This is used to retrieve next batch of the collection.</td>
             </tr>
             <tr>
+              <th><code>limit</code></th>
+              <td>
+                <p>Limits the number of objects contained in the result set.</p>
+              </td>
+            </tr>
+            <tr>
               <th><code>verbose=true</code></th>
               <td>
                 <p>Retrieve optional information of the resource.  You are able to use this parameter in the indexing actions related
@@ -491,6 +497,13 @@
                 <p>Retrieve Base64 encoded image if the resource has image data such as <code>receipt_logo</code> and <code>icon</code>.
                 You are able to use this parameter in the actions related to <code>Cashier</code>, <code>CustomerNote</code>, and <code>CustomerTag</code>.  Otherwise,
                 the parameter is simply ignored.</p>
+              </td>
+            </tr>
+            <tr>
+              <th><code>total_count=true</code></th>
+              <td>
+                <p>Retrieve the number of objects which is <strong>actially</strong> contained in the result set.  Using this parameter,
+                You can know the total count of reccords without reading whole collection.</p>
               </td>
             </tr>
           </table>

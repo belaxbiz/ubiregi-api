@@ -25,6 +25,11 @@
     %th <code>glb</code>
     %td Greatest lower bound of id of the result set. This is used to retrieve next batch of the collection.
   %tr
+    %th <code>limit</code>
+    %td
+      :markdown
+        Limits the number of objects contained in the result set.
+  %tr
     %th <code>verbose=true</code>
     %td 
       :markdown
@@ -38,6 +43,12 @@
         Retrieve Base64 encoded image if the resource has image data such as `receipt_logo` and `icon`.
         You are able to use this parameter in the actions related to `Cashier`, `CustomerNote`, and `CustomerTag`.  Otherwise, 
         the parameter is simply ignored.
+  %tr
+    %th <code>total_count=true</code>
+    %td
+      :markdown
+        Retrieve the number of objects which is **actially** contained in the result set.  Using this parameter,
+        You can know the total count of reccords without reading whole collection.
 
 %p The result set can be described as follows:
 
