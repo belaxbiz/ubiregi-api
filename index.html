@@ -218,8 +218,8 @@
           <hr>
           <h1 id='authentication'>Authentication</h1>
           <p>
-            Ubiregi API access is managed in the OAuth2 manner.
-            You should consult to OAuth2 spec for details.
+            Ubiregi API access is managed in the <strong>OAuth2</strong> manner.
+            You should consult to <a href="http://tools.ietf.org/html/rfc6749">OAuth2 spec</a> for details.
           </p>
           <h2 id='authentication-app-registration'>App Registration</h2>
           <p>Visit <a href="https://ubiregi.com/developer">Ubiregi Developer Dashboard</a> to
@@ -478,6 +478,12 @@
               <td>Greatest lower bound of id of the result set. This is used to retrieve next batch of the collection.</td>
             </tr>
             <tr>
+              <th><code>limit</code></th>
+              <td>
+                <p>Limits the number of objects contained in the result set.</p>
+              </td>
+            </tr>
+            <tr>
               <th><code>verbose=true</code></th>
               <td>
                 <p>Retrieve optional information of the resource.  You are able to use this parameter in the indexing actions related
@@ -493,12 +499,19 @@
                 the parameter is simply ignored.</p>
               </td>
             </tr>
+            <tr>
+              <th><code>total_count=true</code></th>
+              <td>
+                <p>Retrieve the number of objects which is <strong>actially</strong> contained in the result set.  Using this parameter,
+                You can know the total count of reccords without reading whole collection.</p>
+              </td>
+            </tr>
           </table>
           <p>The result set can be described as follows:</p>
           <blockquote>{ item | since ≤ item.updated_at ⋀ item.updated_at < until ⋀ glb < item.id }</blockquote>
           <p>The items are sorted by their <code>id</code>s.</p>
           <p>The result will be on following pattern.</p>
-          <pre>{&#x000A;  &quot;timestamp&quot;: timestamp,&#x000A;  &quot;next-url&quot;: url,&#x000A;  &quot;last_updated_at&quot;: timestamp,&#x000A;  rows: [ objects ],&#x000A;}</pre>
+          <pre>{&#x000A;  &quot;timestamp&quot;: timestamp,&#x000A;  &quot;next-url&quot;: url,&#x000A;  &quot;next_batch_since&quot;: next_batch_since,&#x000A;  &quot;last_updated_at&quot;: timestamp,&#x000A;  rows: [ objects ],&#x000A;}</pre>
           <dl>
             <dt>timestamp</dt>
             <dd>
@@ -514,6 +527,10 @@
             <dt>last_updated_at</dt>
             <dd>
               The timestamp on the time, there were last update of an object which belongs to the resource you requested.
+            </dd>
+            <dt>next_batch_since</dt>
+            <dd>
+              The timestamp value that it should be passed as a `since` query parameter in the next batch request.
             </dd>
             <dt>$rows</dt>
             <dd>
