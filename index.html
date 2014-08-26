@@ -18,13 +18,11 @@
           <li><a href='#introduction-general-notes'>Note</a></li>
         </ul>
         <hr>
-        <h3><a href='#authentication'>Authentication</a></h3>
+        <h3>Authentication</h3>
         <ul>
-          <li><a href='#authentication-app-registration'>App Registration</a></li>
-          <li><a href='#authentication-authorization'>Getting Authorized</a></li>
-          <li><a href='#authentication-token'>Working with Token</a></li>
-          <li><a href='#authentication-api-access'>Accessing API with Token</a></li>
-          <li><a href='#authentication-compat'>Old API Compatiblity</a></li>
+          <li><a href='#authentication-token'>with API token</a></li>
+          <li><a href='#authentication-oauth2'>with OAuth2</a></li>
+          <li><a href='#expiration'>Expiration</a></li>
         </ul>
         <hr>
         <h3>API Objects</h3>
@@ -216,12 +214,55 @@
             </dd>
           </dl>
           <hr>
-          <h1 id='authentication'>Authentication</h1>
+          <h1 id='authentication-token'>Authentication with API Token</h1>
+          <p>
+            Ubiregi API provides very simple authentication mechanism using pre-shared token.
+            This way is recommended to start developing your own apps which is integrated with Ubiregi.
+            However, if you are planning to allow many users to use your app, it is recommended to use OAuth2 for authentication.
+          </p>
+          <h2>Prepare API Token</h2>
+          <p>
+            Ubiregi users can generate API access tokens, in Ubiregi web app.
+          </p>
+          <ol>
+            <li>Visit <a href='https://ubiregi.com/a/account/apps' target='_blank'>account setting page</a></li>
+            <li>Click <code>新しく作成</code> button of <code>APIアクセストークン</code> section</li>
+            <li>Put name of the app; this is optional and used to identify your app</li>
+            <li>Click <code>作成</code> button</li>
+            <li>Click <code>表示</code> button of new added item on the page to see the token string</li>
+          </ol>
+          <img src='images/token-dialog.png' style='width:700px; margin-bottom:30px;'>
+          <p>
+            Your user, who is trying to use your app with a Ubiregi account, have to share the token with your app.
+            The simplest way to do that should be the following.
+          </p>
+          <ol>
+            <li>Prepare a form to put API token in your app</li>
+            <li>Ask your user to copy & paste from the dialog shown above</li>
+          </ol>
+          <h2>Authorizing API Requests</h2>
+          <p>
+            Put the following http request header in all your API requests.
+          </p>
+          <table>
+            <tr>
+              <th width='190'><code>X-Ubiregi-Auth-Token</code></th>
+              <td>
+                The authentication token of the user for your app installation.
+                This is used for authentication.
+              </td>
+            </tr>
+          </table>
+          <p>
+            There is no expiration.
+            The exception is when your user explicitly canceled the authorization to your app.
+          </p>
+          <h1 id='authentication-oauth2'>Authentication with OAuth2</h1>
           <p>
             Ubiregi API access is managed in the <strong>OAuth2</strong> manner.
             You should consult to <a href="http://tools.ietf.org/html/rfc6749">OAuth2 spec</a> for details.
           </p>
-          <h2 id='authentication-app-registration'>App Registration</h2>
+          <h2>App Registration</h2>
           <p>Visit <a href="https://ubiregi.com/developer">Ubiregi Developer Dashboard</a> to
           register your app.</p>
           <h3>Remarks</h3>
@@ -232,7 +273,7 @@
           <li><em>Public client</em> means the app does not have an credential to be authenticated.
           The publicity can not be changed later.</li>
           </ul>
-          <h2 id='authentication-authorization'>Getting Authorized</h2>
+          <h2>Getting Authorized</h2>
           <p>
             Make your user's UA to access at <code>https://ubiregi.com/oauth2/authorize</code> endpoint.
             The endpoint accepts several query parameters.
@@ -268,7 +309,7 @@
               </td>
             </tr>
           </table>
-          <h2 id='authentication-token'>Working with Token</h2>
+          <h2>Working with Token</h2>
           <p>
             <code>https://ubiregi.com/oauth2/token</code> is the token endpoint.
             POST HTTP request following OAuth2 protocol to:
@@ -331,7 +372,7 @@
             It is completely okay if you refresh your token even if it is not expired.
             It invalidates the old access token, and issues new access token and refresh token pair.
           </p>
-          <h2 id='authentication-api-access'>Accessing API with Token</h2>
+          <h2>Accessing API with Token</h2>
           <p>
             Give an <code>Authorization</code> HTTP request header in the following syntax.
           </p>
@@ -343,48 +384,7 @@
             If the token is expired, the request will result in <code>401</code> and <code>WWW-Authenticate</code> header will be <code>Bearer error="invalid_token",expired=true</code>.
             The <code>expired</code> field will be given to mark the client should refresh access token using refresh token. This is an extension of OAuth2 by Ubiregi API.
           </p>
-          <h2 id='authentication-compat'>Old API Compatibility</h2>
-          <p>
-            Ubiregi API was using an token based simple access control.
-            Currently, new app registration form is closed for this protocol.
-            However, existing apps can be used to access the API.
-          </p>
-          <p>Give all HTTP requests to the API the following headers.</p>
-          <table>
-            <tr>
-              <th width='190'><code>X-Ubiregi-Auth-Token</code></th>
-              <td>
-                The authentication token of the user for your app installation.
-                This is used for authentication.
-              </td>
-            </tr>
-            <tr>
-              <th><code>X-Ubiregi-App-Secret</code></th>
-              <td>
-                <div>
-                  Hash of your app's secret.
-                  This is used to identify which app send the access, and can be used to block the app.
-                  You are responsible to keep it secret.
-                </div>
-                <div>
-                  Given your app's <em>secret</em> and your generated <em>salt</em>, compute
-                </div>
-                <blockquote>
-                  <em>salt</em><code>:</code><em>h(salt . secret)</em>
-                </blockquote>
-                <div>
-                  where, <em>h</em> is SHA1 hashing function, and <em>.</em> is concatenation of two strings.
-                </div>
-              </td>
-            </tr>
-          </table>
-          <p>
-            If <code>X-Ubiregi-Auth-Token</code> or <code>X-Ubiregi-App-Secret</code> is invalid, your request will result in <code>401</code> (Unauthorized) status.
-          </p>
-          <p>
-            Check the <a href='#introduction-examples'>examples</a> to see how the authentication is exactly.
-          </p>
-          <h2>Account Expiration</h2>
+          <h1 id='expiration'>Account Expiration</h1>
           Account may be expired.
           <dl>
             <dt>Expired account at time <em>t</em></dt>
